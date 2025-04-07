@@ -27,9 +27,15 @@ def ouput_jobs_to_xlxs(data):
     headers = list(data[0].keys())
     # print(headers)  # print the headers of the json data
 
-    # write api response to the job_sheet
+#   POPULATE THE JOB SHEET WITH DATA && SAVE TO XLSX FILE
+
+    # write api header values to the job_sheet
     for i in range(0, len(headers)):
         job_sheet.write(0, i, headers[i])
+        # add job info to the job_sheet
+    for i in range(0, len(data)):
+        for j in range(0, len(headers)): # iterate through the headers
+            job_sheet.write(i + 1, j, data[i][headers[j]])    
     wb.save('remoteok_jobs.xls')
 
 
