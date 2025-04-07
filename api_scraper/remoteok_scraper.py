@@ -20,7 +20,21 @@ def get_job_postings():
     return res.json()
 
 
+def ouput_jobs_to_xlxs(data):
+    wb = Workbook()
+    job_sheet = wb.add_sheet("Jobs")
+    # get headers from api response using 'key()' function
+    headers = list(data[0].keys())
+    # print(headers)  # print the headers of the json data
+
+    # write api response to the job_sheet
+    for i in range(0, len(headers)):
+        job_sheet.write(0, i, headers[i])
+    wb.save('remoteok_jobs.xls')
+
+
 if __name__ == "__main__":
-    json = get_job_postings()[1]
+    # json = get_job_postings()[1]  # print single one job posting
+    json = get_job_postings()[1:]  # print from index one onwards
+    ouput_jobs_to_xlxs(json)
     # print(get_job_postings())
-    print(json)
